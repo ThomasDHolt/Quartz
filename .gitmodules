@@ -1,0 +1,3 @@
+[submodule "Quartz/vendor/spdlog"]
+	path = Quartz/vendor/spdlog
+	url = https://github.com/gabime/spdlog
