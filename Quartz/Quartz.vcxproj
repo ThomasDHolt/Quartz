@@ -11,12 +11,14 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Quartz\Log.h" />
     <ClInclude Include="src\Quartz.h" />
     <ClInclude Include="src\Quartz\Application.h" />
     <ClInclude Include="src\Quartz\Core.h" />
     <ClInclude Include="src\Quartz\EntryPoint.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Quartz\Log.cpp" />
     <ClCompile Include="src\Quartz\Application.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
