@@ -2,10 +2,10 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>C:\Dev\Quartz\bin\Debug-x64\Quartz\Quartz.dll</FullPath>
+      <FullPath>C:\Dev\Quartz\bin\Debug-windows-x86_64\Quartz\Quartz.dll</FullPath>
     </ProjectOutput>
     <ProjectOutput>
-      <FullPath>C:\Dev\Quartz\bin\Debug-x64\Sandbox\Sandbox.exe</FullPath>
+      <FullPath>C:\Dev\Quartz\bin\Debug-windows-x86_64\Sandbox\Sandbox.exe</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles />
