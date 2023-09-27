@@ -1,3 +1,6 @@
 [submodule "Quartz/vendor/spdlog"]
 	path = Quartz/vendor/spdlog
 	url = https://github.com/gabime/spdlog
+[submodule "Quartz/vendor/glfw"]
+	path = Quartz/vendor/glfw
+	url = https://github.com/TheCherno/GLFW
