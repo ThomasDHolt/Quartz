@@ -4,6 +4,9 @@
     <Filter Include="Quartz">
       <UniqueIdentifier>{CC374DCD-B8D9-77A3-A194-8BF78DD5FEF3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Quartz\Events">
+      <UniqueIdentifier>{30A65469-9C66-D09F-65A1-191DD120157C}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Quartz.h" />
@@ -15,6 +18,18 @@
     </ClInclude>
     <ClInclude Include="src\Quartz\EntryPoint.h">
       <Filter>Quartz</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Quartz\Events\ApplicationEvent.h">
+      <Filter>Quartz\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Quartz\Events\Event.h">
+      <Filter>Quartz\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Quartz\Events\KeyEvent.h">
+      <Filter>Quartz\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Quartz\Events\MouseEvent.h">
+      <Filter>Quartz\Events</Filter>
     </ClInclude>
     <ClInclude Include="src\Quartz\Log.h">
       <Filter>Quartz</Filter>
