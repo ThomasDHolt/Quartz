@@ -2,8 +2,6 @@
 
 #include "Event.h"
 
-#include <sstream>
-
 namespace Quartz
 {
 	class QUARTZ_API WindowResizeEvent : public Event

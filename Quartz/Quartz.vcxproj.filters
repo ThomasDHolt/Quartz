@@ -34,6 +34,7 @@
     <ClInclude Include="src\Quartz\Log.h">
       <Filter>Quartz</Filter>
     </ClInclude>
+    <ClInclude Include="src\qtpch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Quartz\Application.cpp">
@@ -42,5 +43,6 @@
     <ClCompile Include="src\Quartz\Log.cpp">
       <Filter>Quartz</Filter>
     </ClCompile>
+    <ClCompile Include="src\qtpch.cpp" />
   </ItemGroup>
 </Project>

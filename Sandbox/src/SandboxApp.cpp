@@ -1,3 +1,4 @@
+#include "qtpch.h"
 #include <Quartz.h>
 
 class Sandbox : public Quartz::Application

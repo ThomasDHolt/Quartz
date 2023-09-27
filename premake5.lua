@@ -19,6 +19,9 @@ project "Quartz"
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
+	pchheader "qtpch.h"
+	pchsource "Quartz/src/qtpch.cpp"
+
 	files
 	{
 		"%{prj.name}/src/**.h",
@@ -27,7 +30,7 @@ project "Quartz"
 
 	includedirs
 	{
-		"${prj.name}/src",
+		"%{prj.name}/src",
 		"%{prj.name}/vendor/spdlog/include"
 	}
 
