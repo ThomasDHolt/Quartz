@@ -7,10 +7,14 @@
 #include <algorithm>
 #include <functional>
 
+#include "Quartz/Log.h"
+
 #include <string>
 #include <vector>
 #include <unordered_map>
 #include <unordered_set>
+
+#include "Quartz/Log.h"
 
 #ifdef QT_PLATFORM_WINDOWS
 	#include <Windows.h>

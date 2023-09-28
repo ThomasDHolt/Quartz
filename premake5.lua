@@ -11,6 +11,11 @@ workspace "Quartz"
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
+IncludeDir = {}
+IncludeDir["GLFW"] = "Quartz/vendor/glfw/include"
+
+include "Quartz/vendor/glfw"
+
 project "Quartz"
 	location "Quartz"
 	kind "SharedLib"
@@ -31,7 +36,14 @@ project "Quartz"
 	includedirs
 	{
 		"%{prj.name}/src",
-		"%{prj.name}/vendor/spdlog/include"
+		"%{prj.name}/vendor/spdlog/include",
+		"%{IncludeDir.GLFW}"
+	}
+
+	links
+	{
+		"GLFW",
+		"opengl32.lib"
 	}
 
 	filter "system:Windows"
