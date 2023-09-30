@@ -20,12 +20,27 @@ namespace Quartz
 
 	}
 
+	void Application::PushLayer(Layer* pLayer)
+	{
+		m_LayerStack.PushLayer(pLayer);
+	}
+
+	void Application::PushOverlay(Layer* pLayer)
+	{
+		m_LayerStack.PushOverlay(pLayer);
+	}
+
 	void Application::OnEvent(Event& e)
 	{
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
 
-		QT_CORE_TRACE("{0}", e);
+		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin(); )
+		{
+			(*--it)->OnEvent(e);
+			if (e.Handled())
+				break;
+		}
 	}
 
 	void Application::Run()
@@ -34,6 +49,10 @@ namespace Quartz
 		{
 			glClearColor(1, 0, 1, 1);
 			glClear(GL_COLOR_BUFFER_BIT);
+
+			for (Layer* layer : m_LayerStack)
+				layer->OnUpdate();
+
 			m_Window->OnUpdate();
 		}
 	}

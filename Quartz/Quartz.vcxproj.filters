@@ -47,6 +47,12 @@
     <ClInclude Include="src\WindowsWindow.h">
       <Filter>Platform\Windows</Filter>
     </ClInclude>
+    <ClInclude Include="src\Quartz\Layer.h">
+      <Filter>Quartz</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Quartz\LayerStack.h">
+      <Filter>Quartz</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Quartz\Application.cpp">
@@ -58,6 +64,12 @@
     <ClCompile Include="src\qtpch.cpp" />
     <ClCompile Include="src\WindowsWindow.cpp">
       <Filter>Platform\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Quartz\Layer.cpp">
+      <Filter>Quartz</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Quartz\LayerStack.cpp">
+      <Filter>Quartz</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

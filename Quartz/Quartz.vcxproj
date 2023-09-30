@@ -84,6 +84,7 @@
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
+      <AdditionalOptions>/MDd %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -146,6 +147,8 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Quartz\Layer.h" />
+    <ClInclude Include="src\Quartz\LayerStack.h" />
     <ClInclude Include="src\Quartz.h" />
     <ClInclude Include="src\Quartz\Application.h" />
     <ClInclude Include="src\Quartz\Core.h" />
@@ -160,6 +163,8 @@
     <ClInclude Include="src\WindowsWindow.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Quartz\Layer.cpp" />
+    <ClCompile Include="src\Quartz\LayerStack.cpp" />
     <ClCompile Include="src\Quartz\Application.cpp" />
     <ClCompile Include="src\Quartz\Log.cpp" />
     <ClCompile Include="src\qtpch.cpp">

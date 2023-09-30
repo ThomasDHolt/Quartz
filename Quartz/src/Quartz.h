@@ -3,6 +3,7 @@
 // For use by Quartz applications
 
 #include "Quartz/Application.h"
+#include "Quartz/Layer.h"
 #include "Quartz/Log.h"
 
 // --EntryPoint------------------------
