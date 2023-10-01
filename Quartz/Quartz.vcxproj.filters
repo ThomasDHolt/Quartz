@@ -1,14 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <Filter Include="Platform">
+      <UniqueIdentifier>{2AC788B4-1694-E3BF-3FAD-D1672BD9184E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\OpenGL">
+      <UniqueIdentifier>{1E7D2C1D-8A08-9AE1-9319-1DD6FF23F6E1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows">
+      <UniqueIdentifier>{64FBD71A-50F4-F66C-7926-DCF1657ED678}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Quartz">
       <UniqueIdentifier>{CC374DCD-B8D9-77A3-A194-8BF78DD5FEF3}</UniqueIdentifier>
     </Filter>
     <Filter Include="Quartz\Events">
       <UniqueIdentifier>{30A65469-9C66-D09F-65A1-191DD120157C}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Quartz\ImGui">
+      <UniqueIdentifier>{F6558B60-E2B8-1A05-8B3E-53BB7780E687}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Platform\Windows\WindowsWindow.h">
+      <Filter>Platform\Windows</Filter>
+    </ClInclude>
     <ClInclude Include="src\Quartz.h" />
     <ClInclude Include="src\Quartz\Application.h">
       <Filter>Quartz</Filter>
@@ -31,6 +46,9 @@
     <ClInclude Include="src\Quartz\Events\MouseEvent.h">
       <Filter>Quartz\Events</Filter>
     </ClInclude>
+    <ClInclude Include="src\Quartz\ImGui\ImGuiLayer.h">
+      <Filter>Quartz\ImGui</Filter>
+    </ClInclude>
     <ClInclude Include="src\Quartz\Layer.h">
       <Filter>Quartz</Filter>
     </ClInclude>
@@ -40,13 +58,21 @@
     <ClInclude Include="src\Quartz\Log.h">
       <Filter>Quartz</Filter>
     </ClInclude>
-    <ClInclude Include="src\Window.h" />
-    <ClInclude Include="src\WindowsWindow.h" />
+    <ClInclude Include="src\Quartz\Window.h">
+      <Filter>Quartz</Filter>
+    </ClInclude>
     <ClInclude Include="src\qtpch.h" />
+    <ClInclude Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp">
+      <Filter>Platform\Windows</Filter>
+    </ClCompile>
     <ClCompile Include="src\Quartz\Application.cpp">
       <Filter>Quartz</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Quartz\ImGui\ImGuiLayer.cpp">
+      <Filter>Quartz\ImGui</Filter>
     </ClCompile>
     <ClCompile Include="src\Quartz\Layer.cpp">
       <Filter>Quartz</Filter>
@@ -57,7 +83,7 @@
     <ClCompile Include="src\Quartz\Log.cpp">
       <Filter>Quartz</Filter>
     </ClCompile>
-    <ClCompile Include="src\WindowsWindow.cpp" />
     <ClCompile Include="src\qtpch.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.cpp" />
   </ItemGroup>
 </Project>
