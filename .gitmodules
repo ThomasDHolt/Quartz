@@ -4,3 +4,6 @@
 [submodule "Quartz/vendor/glfw"]
 	path = Quartz/vendor/glfw
 	url = https://github.com/TheCherno/GLFW
+[submodule "Quartz/vendor/imgui"]
+	path = Quartz/vendor/imgui
+	url = https://github.com/TheCherno/imgui
