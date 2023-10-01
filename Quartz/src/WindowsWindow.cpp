@@ -5,6 +5,8 @@
 #include "Quartz/Events/MouseEvent.h"
 #include "Quartz/Events/ApplicationEvent.h"
 
+#include "glad/glad.h"
+
 namespace Quartz
 {
 	static bool s_GLFWInitialised = false;
@@ -47,6 +49,8 @@ namespace Quartz
 
 		m_Window = glfwCreateWindow((int)pProps.Width, (int)pProps.Height, m_Data.Title.c_str(), nullptr, nullptr);
 		glfwMakeContextCurrent(m_Window);
+		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+		QT_CORE_ASSERT(status, "Failed to initialize Glad!");
 		glfwSetWindowUserPointer(m_Window, &m_Data);
 		SetVSync(true);
 

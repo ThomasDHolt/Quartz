@@ -7,12 +7,6 @@
     <Filter Include="Quartz\Events">
       <UniqueIdentifier>{30A65469-9C66-D09F-65A1-191DD120157C}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Platform">
-      <UniqueIdentifier>{1bf24cbb-e1bd-4bf4-b44c-614fdf2169dc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Platform\Windows">
-      <UniqueIdentifier>{e2be02c6-570c-45a7-8187-1021dc95c7f0}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Quartz.h" />
@@ -37,33 +31,22 @@
     <ClInclude Include="src\Quartz\Events\MouseEvent.h">
       <Filter>Quartz\Events</Filter>
     </ClInclude>
-    <ClInclude Include="src\Quartz\Log.h">
-      <Filter>Quartz</Filter>
-    </ClInclude>
-    <ClInclude Include="src\qtpch.h" />
-    <ClInclude Include="src\Window.h">
-      <Filter>Quartz</Filter>
-    </ClInclude>
-    <ClInclude Include="src\WindowsWindow.h">
-      <Filter>Platform\Windows</Filter>
-    </ClInclude>
     <ClInclude Include="src\Quartz\Layer.h">
       <Filter>Quartz</Filter>
     </ClInclude>
     <ClInclude Include="src\Quartz\LayerStack.h">
       <Filter>Quartz</Filter>
     </ClInclude>
+    <ClInclude Include="src\Quartz\Log.h">
+      <Filter>Quartz</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Window.h" />
+    <ClInclude Include="src\WindowsWindow.h" />
+    <ClInclude Include="src\qtpch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Quartz\Application.cpp">
       <Filter>Quartz</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Quartz\Log.cpp">
-      <Filter>Quartz</Filter>
-    </ClCompile>
-    <ClCompile Include="src\qtpch.cpp" />
-    <ClCompile Include="src\WindowsWindow.cpp">
-      <Filter>Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\Quartz\Layer.cpp">
       <Filter>Quartz</Filter>
@@ -71,5 +54,10 @@
     <ClCompile Include="src\Quartz\LayerStack.cpp">
       <Filter>Quartz</Filter>
     </ClCompile>
+    <ClCompile Include="src\Quartz\Log.cpp">
+      <Filter>Quartz</Filter>
+    </ClCompile>
+    <ClCompile Include="src\WindowsWindow.cpp" />
+    <ClCompile Include="src\qtpch.cpp" />
   </ItemGroup>
 </Project>

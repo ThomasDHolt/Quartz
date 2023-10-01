@@ -13,8 +13,10 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 IncludeDir = {}
 IncludeDir["GLFW"] = "Quartz/vendor/glfw/include"
+IncludeDir["Glad"] = "Quartz/vendor/glad/include"
 
 include "Quartz/vendor/glfw"
+include "Quartz/vendor/glad"
 
 project "Quartz"
 	location "Quartz"
@@ -37,12 +39,14 @@ project "Quartz"
 	{
 		"%{prj.name}/src",
 		"%{prj.name}/vendor/spdlog/include",
-		"%{IncludeDir.GLFW}"
+		"%{IncludeDir.GLFW}",
+		"%{IncludeDir.Glad}"
 	}
 
 	links
 	{
 		"GLFW",
+		"Glad",
 		"opengl32.lib"
 	}
 
@@ -54,7 +58,8 @@ project "Quartz"
 		defines
 		{
 			"QT_PLATFORM_WINDOWS",
-			"QT_BUILD_DLL"
+			"QT_BUILD_DLL",
+			"GLFW_INCLUDE_NONE"
 		}
 
 		postbuildcommands
