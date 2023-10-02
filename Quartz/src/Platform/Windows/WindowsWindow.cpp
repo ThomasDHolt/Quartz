@@ -99,6 +99,13 @@ namespace Quartz
 			}
 		});
 
+		glfwSetCharCallback(m_Window, [](GLFWwindow* pWindow, unsigned int pKeyCode)
+		{
+			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(pWindow);
+			KeyTypedEvent event(pKeyCode);
+			data.EventCallback(event);
+		});
+
 		glfwSetMouseButtonCallback(m_Window, [](GLFWwindow* pWindow, int pButton, int pAction, int pMods)
 		{
 			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(pWindow);
