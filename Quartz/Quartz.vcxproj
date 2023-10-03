@@ -163,9 +163,11 @@
     <ClInclude Include="src\Quartz\Events\MouseEvent.h" />
     <ClInclude Include="src\Quartz\ImGui\ImGuiLayer.h" />
     <ClInclude Include="src\Quartz\Input.h" />
+    <ClInclude Include="src\Quartz\KeyCodes.h" />
     <ClInclude Include="src\Quartz\Layer.h" />
     <ClInclude Include="src\Quartz\LayerStack.h" />
     <ClInclude Include="src\Quartz\Log.h" />
+    <ClInclude Include="src\Quartz\MouseButtonCodes.h" />
     <ClInclude Include="src\Quartz\Window.h" />
     <ClInclude Include="src\qtpch.h" />
   </ItemGroup>

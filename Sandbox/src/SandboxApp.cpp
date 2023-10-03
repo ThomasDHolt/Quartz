@@ -11,12 +11,13 @@ public:
 
 	void OnUpdate() override
 	{
-		QT_INFO("ExampleLayer::Update");
+		if (Quartz::Input::IsKeyPressed(QT_KEY_TAB))
+			QT_TRACE("Tab key is pressed!");
 	}
 
 	void OnEvent(Quartz::Event& pEvent) override
 	{
-		QT_TRACE("{0}", pEvent);
+		//QT_TRACE("{0}", pEvent);
 	}
 };
 
