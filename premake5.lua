@@ -15,6 +15,7 @@ IncludeDir = {}
 IncludeDir["GLFW"] = "Quartz/vendor/glfw/include"
 IncludeDir["Glad"] = "Quartz/vendor/glad/include"
 IncludeDir["ImGui"] = "Quartz/vendor/imgui"
+IncludeDir["glm"] = "Quartz/vendor/glm"
 
 include "Quartz/vendor/glfw"
 include "Quartz/vendor/glad"
@@ -34,7 +35,9 @@ project "Quartz"
 	files
 	{
 		"%{prj.name}/src/**.h",
-		"%{prj.name}/src/**.cpp"
+		"%{prj.name}/src/**.cpp",
+		"%{prj.name}/vendor/glm/glm/**.hpp",
+		"%{prj.name}/vendor/glm/glm/**.inl"
 	}
 
 	includedirs
@@ -43,7 +46,8 @@ project "Quartz"
 		"%{prj.name}/vendor/spdlog/include",
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.Glad}",
-		"%{IncludeDir.ImGui}"
+		"%{IncludeDir.ImGui}",
+		"%{IncludeDir.glm}"
 	}
 
 	links
@@ -103,7 +107,8 @@ project "Sandbox"
 	includedirs
 	{
 		"Quartz/vendor/spdlog/include",
-		"Quartz/src"
+		"Quartz/src",
+		"%{IncludeDir.glm}"
 	}
 
 	links

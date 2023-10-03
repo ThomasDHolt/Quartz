@@ -1,12 +1,14 @@
 #include "qtpch.h"
 #include <Quartz.h>
 
+
 class ExampleLayer : public Quartz::Layer
 {
 public:
 	ExampleLayer()
 		: Layer("Example")
 	{
+		
 	}
 
 	void OnUpdate() override
