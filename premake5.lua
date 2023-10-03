@@ -55,7 +55,7 @@ project "Quartz"
 	}
 
 	filter "system:Windows"
-		cppdialect = "C++14"
+		cppdialect = "C++17"
 		staticruntime = "On"
 		systemversion "latest"
 
@@ -112,7 +112,7 @@ project "Sandbox"
 	}
 
 	filter "system:Windows"
-		cppdialect = "C++14"
+		cppdialect = "C++17"
 		staticruntime = "On"
 		systemversion "latest"
 

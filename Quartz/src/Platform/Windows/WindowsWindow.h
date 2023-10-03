@@ -22,6 +22,8 @@ namespace Quartz
 		inline void SetEventCallback(const EventCallbackFn& pCallback) override { m_Data.EventCallback = pCallback; }
 		void SetVSync(bool pEnabled) override;
 		bool IsVSync() const override;
+
+		inline virtual void* GetNativeWindow() const { return m_Window; }
 	private:
 		virtual void Init(const WindowProps& pProps);
 		virtual void Shutdown();
