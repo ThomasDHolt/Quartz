@@ -2,11 +2,12 @@
 
 #include "Core.h"
 
+#include "Window.h"
 #include "Quartz/LayerStack.h"
 #include "Quartz/Events/Event.h"
 #include "Quartz/Events/ApplicationEvent.h"
 
-#include "Window.h"
+#include "Quartz/ImGui/ImGuiLayer.h"
 
 namespace Quartz
 {
@@ -29,6 +30,7 @@ namespace Quartz
 		bool OnWindowClose(WindowCloseEvent& e);
 
 		std::unique_ptr<Window> m_Window;
+		ImGuiLayer* m_ImGuiLayer;
 		bool m_Running = true;
 		LayerStack m_LayerStack;
 	private:

@@ -108,6 +108,7 @@ project "Sandbox"
 	{
 		"Quartz/vendor/spdlog/include",
 		"Quartz/src",
+		"Quartz/vendor",
 		"%{IncludeDir.glm}"
 	}
 

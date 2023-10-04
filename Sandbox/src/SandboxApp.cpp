@@ -1,6 +1,7 @@
 #include "qtpch.h"
 #include <Quartz.h>
 
+#include "imgui/imgui.h"
 
 class ExampleLayer : public Quartz::Layer
 {
@@ -17,6 +18,11 @@ public:
 			QT_TRACE("Tab key is pressed!");
 	}
 
+	virtual void OnImGuiRender() override
+	{
+		
+	}
+
 	void OnEvent(Quartz::Event& pEvent) override
 	{
 		//QT_TRACE("{0}", pEvent);
@@ -29,7 +35,6 @@ public:
 	Sandbox()
 	{
 		PushLayer(new ExampleLayer());
-		PushOverlay(new Quartz::ImGuiLayer());
 	}
 
 	~Sandbox()
