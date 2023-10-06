@@ -1,13 +1,21 @@
 #pragma once
 
 #ifdef QT_PLATFORM_WINDOWS
-	#ifdef QT_BUILD_DLL
-		#define QUARTZ_API __declspec(dllexport)
+	#if QT_DYNAMIC_LINK
+		#ifdef QT_BUILD_DLL
+			#define QUARTZ_API __declspec(dllexport)
+		#else
+			#define QUARTZ_API __declspec(dllimport)
+		#endif
 	#else
-		#define QUARTZ_API __declspec(dllimport)
+		#define QUARTZ_API
 	#endif
 #else
 	#error Quartz only supports Windows!
+#endif
+
+#ifdef QT_DEBUG
+	#define QT_ENABLE_ASSERTS
 #endif
 
 #ifdef QT_ENABLE_ASSERTS

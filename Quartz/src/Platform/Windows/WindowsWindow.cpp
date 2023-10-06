@@ -5,7 +5,7 @@
 #include "Quartz/Events/MouseEvent.h"
 #include "Quartz/Events/ApplicationEvent.h"
 
-#include "glad/glad.h"
+#include "Platform/OpenGL/OpenGLContext.h"
 
 namespace Quartz
 {
@@ -38,7 +38,7 @@ namespace Quartz
 		m_Data.Height = pProps.Height;
 
 		QT_CORE_INFO("Creating window {0} ({1}, {2})", pProps.Title, pProps.Width, pProps.Height);
-
+		
 		if (!s_GLFWInitialised)
 		{
 			int success = glfwInit();
@@ -48,9 +48,10 @@ namespace Quartz
 		}
 
 		m_Window = glfwCreateWindow((int)pProps.Width, (int)pProps.Height, m_Data.Title.c_str(), nullptr, nullptr);
-		glfwMakeContextCurrent(m_Window);
-		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
-		QT_CORE_ASSERT(status, "Failed to initialize Glad!");
+		
+		m_Context = new OpenGLContext(m_Window);
+		m_Context->Init();
+
 		glfwSetWindowUserPointer(m_Window, &m_Data);
 		SetVSync(true);
 
@@ -152,7 +153,7 @@ namespace Quartz
 	void WindowsWindow::OnUpdate()
 	{
 		glfwPollEvents();
-		glfwSwapBuffers(m_Window);
+		m_Context->SwapBuffers();
 	}
 
 	void WindowsWindow::SetVSync(bool pEnabled)
