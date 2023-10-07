@@ -162,6 +162,7 @@
     <ClInclude Include="src\Quartz\Log.h" />
     <ClInclude Include="src\Quartz\MouseButtonCodes.h" />
     <ClInclude Include="src\Quartz\Renderer\GraphicsContext.h" />
+    <ClInclude Include="src\Quartz\Renderer\Shader.h" />
     <ClInclude Include="src\Quartz\Window.h" />
     <ClInclude Include="src\qtpch.h" />
     <ClInclude Include="vendor\glm\glm\common.hpp" />
@@ -594,6 +595,7 @@
     <ClCompile Include="src\qtpch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="src\Quartz\Renderer\Shader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="vendor\glfw\GLFW.vcxproj">
