@@ -3,5 +3,17 @@
 
 namespace Quartz
 {
-	RendererAPI Renderer::s_RendererAPI = RendererAPI::OpenGL;
+	void Renderer::BeginScene()
+	{
+	}
+
+	void Renderer::EndScene()
+	{
+	}
+
+	void Renderer::Submit(const std::shared_ptr<VertexArray>& pVertexArray)
+	{
+		pVertexArray->Bind();
+		RenderCommand::DrawIndexed(pVertexArray);
+	}
 }
