@@ -1,12 +1,12 @@
-[submodule "Quartz/vendor/spdlog"]
-	path = Quartz/vendor/spdlog
-	url = https://github.com/gabime/spdlog
 [submodule "Quartz/vendor/glfw"]
 	path = Quartz/vendor/glfw
-	url = https://github.com/TheCherno/GLFW
-[submodule "Quartz/vendor/imgui"]
-	path = Quartz/vendor/imgui
-	url = https://github.com/TheCherno/imgui
+	url = https://github.com/TheCherno/glfw.git
 [submodule "Quartz/vendor/glm"]
 	path = Quartz/vendor/glm
-	url = https://github.com/g-truc/glm
+	url = https://github.com/g-truc/glm.git
+[submodule "Quartz/vendor/imgui"]
+	path = Quartz/vendor/imgui
+	url = https://github.com/TheCherno/imgui.git
+[submodule "Quartz/vendor/spdlog"]
+	path = Quartz/vendor/spdlog
+	url = https://github.com/gabime/spdlog.git
