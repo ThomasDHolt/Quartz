@@ -12,6 +12,17 @@
 
 #include "Quartz/ImGui/ImGuiLayer.h"
 
+// --Renderer--------------------------
+#include "Quartz/Renderer/Renderer.h"
+#include "Quartz/Renderer/RenderCommand.h"
+
+#include "Quartz/Renderer/Shader.h"
+#include "Quartz/Renderer/Buffer.h"
+#include "Quartz/Renderer/VertexArray.h"
+
+#include "Quartz/Renderer/OrthographicCamera.h"
+// ------------------------------------
+
 // --EntryPoint------------------------
 #include "Quartz/EntryPoint.h"
 // ------------------------------------
