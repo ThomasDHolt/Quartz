@@ -13,6 +13,8 @@
 #include "Quartz/Renderer/Buffer.h"
 #include "Quartz/Renderer/VertexArray.h"
 
+#include "Quartz/Renderer/OrthographicCamera.h"
+
 namespace Quartz
 {
 	class QUARTZ_API Application
@@ -43,6 +45,8 @@ namespace Quartz
 
 		std::shared_ptr<Shader> m_BlueShader;
 		std::shared_ptr<VertexArray> m_SquareVA;
+
+		OrthographicCamera m_Camera;
 	private:
 		static Application* s_Instance;
 	};
