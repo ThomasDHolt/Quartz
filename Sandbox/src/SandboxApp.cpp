@@ -128,21 +128,21 @@ public:
 		m_BlueShader.reset(new Quartz::Shader(blueShaderVertexSrc, blueShaderFragmentSrc));
 	}
 
-	void OnUpdate() override
+	void OnUpdate(Quartz::Timestep pTimestep) override
 	{
 		if (Quartz::Input::IsKeyPressed(QT_KEY_UP))
-			m_CameraPosition.y -= m_CameraMoveSpeed;
+			m_CameraPosition.y -= m_CameraMoveSpeed * pTimestep.GetSeconds();
 		if (Quartz::Input::IsKeyPressed(QT_KEY_DOWN))
-			m_CameraPosition.y += m_CameraMoveSpeed;
+			m_CameraPosition.y += m_CameraMoveSpeed * pTimestep.GetSeconds();
 		if (Quartz::Input::IsKeyPressed(QT_KEY_LEFT))
-			m_CameraPosition.x += m_CameraMoveSpeed;
+			m_CameraPosition.x += m_CameraMoveSpeed * pTimestep.GetSeconds();
 		if (Quartz::Input::IsKeyPressed(QT_KEY_RIGHT))
-			m_CameraPosition.x -= m_CameraMoveSpeed;
+			m_CameraPosition.x -= m_CameraMoveSpeed * pTimestep.GetSeconds();
 
 		if (Quartz::Input::IsKeyPressed(QT_KEY_A))
-			m_CameraRotation -= m_CameraRotationSpeed;
+			m_CameraRotation -= m_CameraRotationSpeed * pTimestep.GetSeconds();
 		if (Quartz::Input::IsKeyPressed(QT_KEY_D))
-			m_CameraRotation += m_CameraRotationSpeed;
+			m_CameraRotation += m_CameraRotationSpeed * pTimestep.GetSeconds();
 
 		// --Rendering------------------------------
 		Quartz::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
@@ -150,7 +150,6 @@ public:
 
 		m_Camera.SetPosition(m_CameraPosition);
 		m_Camera.SetRotation(m_CameraRotation);
-		//m_Camera.SetZoom(-1.6f * cameraZoom, 1.6f * cameraZoom, -0.9f * cameraZoom, 0.9f * cameraZoom);
 
 		Quartz::Renderer::BeginScene(m_Camera);
 
@@ -178,10 +177,10 @@ private:
 
 	Quartz::OrthographicCamera m_Camera;
 	glm::vec3 m_CameraPosition;
-	float m_CameraMoveSpeed = 0.1f;
+	float m_CameraMoveSpeed = 1.0f;
 
 	float m_CameraRotation = 0.0f;
-	float m_CameraRotationSpeed = 0.1f;
+	float m_CameraRotationSpeed = 1.0f;
 };
 
 class Sandbox : public Quartz::Application

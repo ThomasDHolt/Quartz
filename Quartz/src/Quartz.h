@@ -6,6 +6,8 @@
 #include "Quartz/Layer.h"
 #include "Quartz/Log.h"
 
+#include "Quartz/Core/Timestep.h"
+
 #include "Quartz/Input.h"
 #include "Quartz/MouseButtonCodes.h"
 #include "Quartz/KeyCodes.h"

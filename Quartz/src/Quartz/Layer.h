@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Quartz/Core.h"
+#include "Quartz/Core/Timestep.h"
 #include "Quartz/Events/Event.h"
 
 namespace Quartz
@@ -13,7 +14,7 @@ namespace Quartz
 
 		virtual void OnAttach() {}
 		virtual void OnDetach() {}
-		virtual void OnUpdate() {}
+		virtual void OnUpdate(Timestep pTimestep) {}
 		virtual void OnImGuiRender() {}
 		virtual void OnEvent(Event& pEvent) {}
 

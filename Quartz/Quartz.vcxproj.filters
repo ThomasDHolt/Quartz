@@ -1387,6 +1387,7 @@
       <Filter>vendor\glm\glm</Filter>
     </ClInclude>
     <ClInclude Include="src\Quartz\Renderer\OrthographicCamera.h" />
+    <ClInclude Include="src\Quartz\Core\Timestep.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp">

@@ -152,6 +152,7 @@
     <ClInclude Include="src\Quartz.h" />
     <ClInclude Include="src\Quartz\Application.h" />
     <ClInclude Include="src\Quartz\Core.h" />
+    <ClInclude Include="src\Quartz\Core\Timestep.h" />
     <ClInclude Include="src\Quartz\EntryPoint.h" />
     <ClInclude Include="src\Quartz\Events\ApplicationEvent.h" />
     <ClInclude Include="src\Quartz\Events\Event.h" />

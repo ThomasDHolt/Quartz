@@ -7,9 +7,7 @@
 
 #include "Input.h"
 
-#include "Quartz/Renderer/OrthographicCamera.h"
-#include "KeyCodes.h"
-#include "MouseButtonCodes.h"
+#include <GLFW/glfw3.h>
 
 namespace Quartz
 {
@@ -63,8 +61,12 @@ namespace Quartz
 	{
 		while (m_Running)
 		{
+			float time = (float)glfwGetTime();
+			Timestep timestep = time - m_LastFrameTime;
+			m_LastFrameTime = time;
+
 			for (Layer* layer : m_LayerStack)
-				layer->OnUpdate();
+				layer->OnUpdate(timestep);
 
 			m_ImGuiLayer->Begin();
 			for (Layer* layer : m_LayerStack)

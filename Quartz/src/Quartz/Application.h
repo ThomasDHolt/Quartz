@@ -7,13 +7,9 @@
 #include "Quartz/Events/Event.h"
 #include "Quartz/Events/ApplicationEvent.h"
 
+#include "Quartz/Core/Timestep.h"
+
 #include "Quartz/ImGui/ImGuiLayer.h"
-
-#include "Quartz/Renderer/Shader.h"
-#include "Quartz/Renderer/Buffer.h"
-#include "Quartz/Renderer/VertexArray.h"
-
-#include "Quartz/Renderer/OrthographicCamera.h"
 
 namespace Quartz
 {
@@ -34,11 +30,12 @@ namespace Quartz
 		inline Window& GetWindow() { return *m_Window; }
 	private:
 		bool OnWindowClose(WindowCloseEvent& e);
-
+	private:
 		std::unique_ptr<Window> m_Window;
 		ImGuiLayer* m_ImGuiLayer;
 		bool m_Running = true;
 		LayerStack m_LayerStack;
+		float m_LastFrameTime = 0.0f;
 	private:
 		static Application* s_Instance;
 	};
