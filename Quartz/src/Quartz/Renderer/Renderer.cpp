@@ -20,6 +20,8 @@ namespace Quartz
 		pShader->UploadUniformMat4("u_ViewProjectionMatrix", m_SceneData->ViewProjectionMatrix);
 		pShader->UploadUniformMat4("u_Transform", pTransform);
 
+		//mi.Bind();
+
 		pVertexArray->Bind();
 		RenderCommand::DrawIndexed(pVertexArray);
 	}

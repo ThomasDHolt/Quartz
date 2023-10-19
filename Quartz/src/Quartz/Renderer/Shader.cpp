@@ -129,4 +129,10 @@ namespace Quartz
 		GLint location = glGetUniformLocation(m_RendererID, pName.c_str());
 		glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(pMatrix));
 	}
+
+	void Shader::UploadUniformFloat4(const std::string pName, const glm::vec4& pValues)
+	{
+		GLint location = glGetUniformLocation(m_RendererID, pName.c_str());
+		glUniform4f(location, pValues.x, pValues.y, pValues.z, pValues.w);
+	}
 }
