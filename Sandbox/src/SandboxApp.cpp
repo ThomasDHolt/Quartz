@@ -2,12 +2,13 @@
 #include <Quartz.h>
 
 #include "imgui/imgui.h"
+#include "glm/gtc/matrix_transform.hpp"
 
 class ExampleLayer : public Quartz::Layer
 {
 public:
 	ExampleLayer()
-		: Layer("Example"), m_Camera(-1.6f, 1.6f, -0.9f, 0.9f), m_CameraPosition(0.0f, 0.0f, 0.0f)
+		: Layer("Example"), m_Camera(-1.6f, 1.6f, -0.9f, 0.9f), m_CameraPosition(0.0f), m_SquarePosition(0.0f)
 	{
 		m_VertexArray.reset(Quartz::VertexArray::Create());
 
@@ -38,10 +39,10 @@ public:
 
 		float squareVertices[4 * 3] =
 		{
-			-0.75f, -0.75f, 0.0f,
-			 0.75f, -0.75f, 0.0f,
-			 0.75f,  0.75f, 0.0f,
-			-0.75f,  0.75f, 0.0f
+			-0.5f, -0.5f, 0.0f,
+			 0.5f, -0.5f, 0.0f,
+			 0.5f,  0.5f, 0.0f,
+			-0.5f,  0.5f, 0.0f
 		};
 
 		std::shared_ptr<Quartz::VertexBuffer> squareVB;
@@ -67,6 +68,7 @@ public:
 			layout(location = 1) in vec4 a_Color;
 
 			uniform mat4 u_ViewProjectionMatrix;
+			uniform mat4 u_Transform;
 
 			out vec3 v_Position;
 			out vec4 v_Color;
@@ -75,7 +77,7 @@ public:
 			{
 				v_Position = a_Position;
 				v_Color = a_Color;
-				gl_Position = u_ViewProjectionMatrix * vec4(a_Position, 1.0);
+				gl_Position = u_ViewProjectionMatrix * u_Transform * vec4(a_Position, 1.0);
 			}
 		)";
 
@@ -102,13 +104,14 @@ public:
 			layout(location = 0) in vec3 a_Position;
 
 			uniform mat4 u_ViewProjectionMatrix;
+			uniform mat4 u_Transform;
 
 			out vec3 v_Position;
 
 			void main()
 			{
 				v_Position = a_Position;
-				gl_Position = u_ViewProjectionMatrix * vec4(a_Position, 1.0);
+				gl_Position = u_ViewProjectionMatrix * u_Transform *  vec4(a_Position, 1.0);
 			}
 		)";
 
@@ -131,18 +134,27 @@ public:
 	void OnUpdate(Quartz::Timestep pTimestep) override
 	{
 		if (Quartz::Input::IsKeyPressed(QT_KEY_UP))
-			m_CameraPosition.y -= m_CameraMoveSpeed * pTimestep.GetSeconds();
-		if (Quartz::Input::IsKeyPressed(QT_KEY_DOWN))
 			m_CameraPosition.y += m_CameraMoveSpeed * pTimestep.GetSeconds();
+		if (Quartz::Input::IsKeyPressed(QT_KEY_DOWN))
+			m_CameraPosition.y -= m_CameraMoveSpeed * pTimestep.GetSeconds();
 		if (Quartz::Input::IsKeyPressed(QT_KEY_LEFT))
-			m_CameraPosition.x += m_CameraMoveSpeed * pTimestep.GetSeconds();
-		if (Quartz::Input::IsKeyPressed(QT_KEY_RIGHT))
 			m_CameraPosition.x -= m_CameraMoveSpeed * pTimestep.GetSeconds();
+		if (Quartz::Input::IsKeyPressed(QT_KEY_RIGHT))
+			m_CameraPosition.x += m_CameraMoveSpeed * pTimestep.GetSeconds();
 
 		if (Quartz::Input::IsKeyPressed(QT_KEY_A))
 			m_CameraRotation -= m_CameraRotationSpeed * pTimestep.GetSeconds();
 		if (Quartz::Input::IsKeyPressed(QT_KEY_D))
 			m_CameraRotation += m_CameraRotationSpeed * pTimestep.GetSeconds();
+
+		if (Quartz::Input::IsKeyPressed(QT_KEY_I))
+			m_SquarePosition.y += m_SquareSpeed * pTimestep.GetSeconds();
+		if (Quartz::Input::IsKeyPressed(QT_KEY_K))
+			m_SquarePosition.y -= m_SquareSpeed * pTimestep.GetSeconds();
+		if (Quartz::Input::IsKeyPressed(QT_KEY_J))
+			m_SquarePosition.x -= m_SquareSpeed * pTimestep.GetSeconds();
+		if (Quartz::Input::IsKeyPressed(QT_KEY_L))
+			m_SquarePosition.x += m_SquareSpeed * pTimestep.GetSeconds();
 
 		// --Rendering------------------------------
 		Quartz::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
@@ -153,8 +165,18 @@ public:
 
 		Quartz::Renderer::BeginScene(m_Camera);
 
-		Quartz::Renderer::Submit(m_BlueShader, m_SquareVA);
-		Quartz::Renderer::Submit(m_Shader, m_VertexArray);
+		glm::mat4 squareScale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
+
+		for (int y = 0; y < 20; y++)
+		{
+			for (int x = 0; x < 20; x++)
+			{
+				glm::vec3 pos(x * 0.11f, y * 0.11f, 0.0f);
+				glm::mat4 squareTransform = glm::translate(glm::mat4(1.0f), pos) * squareScale;
+				Quartz::Renderer::Submit(m_BlueShader, m_SquareVA, squareTransform);
+			}
+		}
+		//Quartz::Renderer::Submit(m_Shader, m_VertexArray);
 
 		Quartz::Renderer::EndScene();
 	}
@@ -181,6 +203,9 @@ private:
 
 	float m_CameraRotation = 0.0f;
 	float m_CameraRotationSpeed = 1.0f;
+
+	glm::vec3 m_SquarePosition;
+	float m_SquareSpeed = 1.0f;
 };
 
 class Sandbox : public Quartz::Application

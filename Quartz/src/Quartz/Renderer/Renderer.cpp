@@ -14,10 +14,11 @@ namespace Quartz
 	{
 	}
 
-	void Renderer::Submit(const std::shared_ptr<Shader>& pShader, const std::shared_ptr<VertexArray>& pVertexArray)
+	void Renderer::Submit(const std::shared_ptr<Shader>& pShader, const std::shared_ptr<VertexArray>& pVertexArray, const glm::mat4& pTransform)
 	{
 		pShader->Bind();
 		pShader->UploadUniformMat4("u_ViewProjectionMatrix", m_SceneData->ViewProjectionMatrix);
+		pShader->UploadUniformMat4("u_Transform", pTransform);
 
 		pVertexArray->Bind();
 		RenderCommand::DrawIndexed(pVertexArray);
