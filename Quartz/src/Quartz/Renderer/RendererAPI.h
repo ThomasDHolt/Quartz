@@ -14,6 +14,7 @@ namespace Quartz
 			OpenGL = 1
 		};
 	public:
+		virtual void Init() = 0;
 		virtual void SetClearColor(const glm::vec4& pColor) = 0;
 		virtual void Clear() = 0;
 

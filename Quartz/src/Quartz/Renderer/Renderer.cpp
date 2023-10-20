@@ -7,6 +7,11 @@ namespace Quartz
 {
 	Renderer::SceneData* Renderer::m_SceneData = new Renderer::SceneData;
 
+	void Renderer::Init()
+	{
+		RenderCommand::Init();
+	}
+
 	void Renderer::BeginScene(OrthographicCamera& pCamera)
 	{
 		m_SceneData->ViewProjectionMatrix = pCamera.GetViewProjectionMatrix();
