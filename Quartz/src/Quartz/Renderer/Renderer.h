@@ -13,7 +13,7 @@ namespace Quartz
 		static void BeginScene(OrthographicCamera& pCamera);
 		static void EndScene();
 
-		static void Submit(const std::shared_ptr<Shader>& pShader, const std::shared_ptr<VertexArray>& pVertexArray, const glm::mat4& pTransform = glm::mat4(1.0f));
+		static void Submit(const Ref<Shader>& pShader, const Ref<VertexArray>& pVertexArray, const glm::mat4& pTransform = glm::mat4(1.0f));
 
 		inline static RendererAPI::API GetAPI() { return RendererAPI::GetAPI(); }
 	private:

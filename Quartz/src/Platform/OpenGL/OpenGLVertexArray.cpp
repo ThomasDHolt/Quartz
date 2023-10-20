@@ -42,7 +42,7 @@ namespace Quartz
 		glBindVertexArray(0);
 	}
 
-	void OpenGLVertexArray::AddVertexBuffer(std::shared_ptr<VertexBuffer>& pVertexBuffer)
+	void OpenGLVertexArray::AddVertexBuffer(const Ref<VertexBuffer>& pVertexBuffer)
 	{
 		QT_CORE_ASSERT(pVertexBuffer->GetLayout().GetElements().size(), "Vertex buffer has no layout!");
 
@@ -67,7 +67,7 @@ namespace Quartz
 		m_VertexBuffers.push_back(pVertexBuffer);
 	}
 
-	void OpenGLVertexArray::SetIndexBuffer(std::shared_ptr<IndexBuffer>& pIndexBuffer)
+	void OpenGLVertexArray::SetIndexBuffer(const Ref<IndexBuffer>& pIndexBuffer)
 	{
 		glBindVertexArray(m_RendererID);
 		pIndexBuffer->Bind();

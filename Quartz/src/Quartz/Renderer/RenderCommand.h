@@ -17,7 +17,7 @@ namespace Quartz
 			s_RendererAPI->Clear();
 		}
 		
-		inline static void DrawIndexed(const std::shared_ptr<VertexArray>& pVertexArray)
+		inline static void DrawIndexed(const Ref<VertexArray>& pVertexArray)
 		{
 			s_RendererAPI->DrawIndexed(pVertexArray);
 		}

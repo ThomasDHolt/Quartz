@@ -20,6 +20,7 @@
 
 #include "Quartz/Renderer/Shader.h"
 #include "Quartz/Renderer/Buffer.h"
+#include "Quartz/Renderer/Texture.h"
 #include "Quartz/Renderer/VertexArray.h"
 
 #include "Quartz/Renderer/OrthographicCamera.h"

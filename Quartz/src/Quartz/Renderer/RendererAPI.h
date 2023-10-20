@@ -17,7 +17,7 @@ namespace Quartz
 		virtual void SetClearColor(const glm::vec4& pColor) = 0;
 		virtual void Clear() = 0;
 
-		virtual void DrawIndexed(const std::shared_ptr<VertexArray>& pVertexArray) = 0;
+		virtual void DrawIndexed(const Ref<VertexArray>& pVertexArray) = 0;
 
 		inline static API GetAPI() { return s_API; }
 	private:

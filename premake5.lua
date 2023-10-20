@@ -16,6 +16,7 @@ IncludeDir["GLFW"] = "Quartz/vendor/glfw/include"
 IncludeDir["Glad"] = "Quartz/vendor/glad/include"
 IncludeDir["ImGui"] = "Quartz/vendor/imgui"
 IncludeDir["glm"] = "Quartz/vendor/glm"
+IncludeDir["stb_image"] = "Quartz/vendor/stb_image"
 
 include "Quartz/vendor/glfw"
 include "Quartz/vendor/glad"
@@ -38,6 +39,8 @@ project "Quartz"
 	{
 		"%{prj.name}/src/**.h",
 		"%{prj.name}/src/**.cpp",
+		"%{prj.name}/vendor/stb_image/**.h",
+		"%{prj.name}/vendor/stb_image/**.cpp",
 		"%{prj.name}/vendor/glm/glm/**.hpp",
 		"%{prj.name}/vendor/glm/glm/**.inl"
 	}
@@ -49,7 +52,8 @@ project "Quartz"
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.ImGui}",
-		"%{IncludeDir.glm}"
+		"%{IncludeDir.glm}",
+		"%{IncludeDir.stb_image}"
 	}
 
 	links

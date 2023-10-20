@@ -21,7 +21,7 @@ public:
 			 0.0f,  0.5f, 0.0f, 0.8f, 0.8f, 0.2f, 1.0f
 		};
 
-		std::shared_ptr<Quartz::VertexBuffer> vertexBuffer;
+		Quartz::Ref<Quartz::VertexBuffer> vertexBuffer;
 		vertexBuffer.reset(Quartz::VertexBuffer::Create(vertices, sizeof(vertices)));
 
 		Quartz::BufferLayout layout =
@@ -33,33 +33,34 @@ public:
 		m_VertexArray->AddVertexBuffer(vertexBuffer);
 
 		uint32_t indices[3] = { 0,1,2 };
-		std::shared_ptr<Quartz::IndexBuffer> indexBuffer;
+		Quartz::Ref<Quartz::IndexBuffer> indexBuffer;
 		indexBuffer.reset(Quartz::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
 		m_VertexArray->SetIndexBuffer(indexBuffer);
 
 		m_SquareVA.reset(Quartz::VertexArray::Create());
 
-		float squareVertices[4 * 3] =
+		float squareVertices[4 * 5] =
 		{
-			-0.5f, -0.5f, 0.0f,
-			 0.5f, -0.5f, 0.0f,
-			 0.5f,  0.5f, 0.0f,
-			-0.5f,  0.5f, 0.0f
+			-0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
+			 0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
+			 0.5f,  0.5f, 0.0f, 1.0f, 1.0f,
+			-0.5f,  0.5f, 0.0f, 0.0f, 1.0f
 		};
 
-		std::shared_ptr<Quartz::VertexBuffer> squareVB;
+		Quartz::Ref<Quartz::VertexBuffer> squareVB;
 		squareVB.reset(Quartz::VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
 
 		Quartz::BufferLayout squareVBLayout =
 		{
-			{ Quartz::ShaderDataType::Float3, "a_Position" }
+			{ Quartz::ShaderDataType::Float3, "a_Position" },
+			{ Quartz::ShaderDataType::Float2, "a_TexCoord" }
 		};
 
 		squareVB->SetLayout(squareVBLayout);
 		m_SquareVA->AddVertexBuffer(squareVB);
 
 		uint32_t squareIndices[6] = { 0,1,2,2,3,0 };
-		std::shared_ptr<Quartz::IndexBuffer> squareIB;
+		Quartz::Ref<Quartz::IndexBuffer> squareIB;
 		squareIB.reset(Quartz::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t)));
 		m_SquareVA->SetIndexBuffer(squareIB);
 
@@ -133,6 +134,46 @@ public:
 		)";
 
 		m_FlatColorShader.reset(Quartz::Shader::Create(flatColorShaderVertexSrc, flatColorShaderFragmentSrc));
+
+		std::string textureShaderVertexSrc = R"(
+			#version 330 core
+
+			layout(location = 0) in vec3 a_Position;
+			layout(location = 1) in vec2 a_TexCoord;
+
+			uniform mat4 u_ViewProjectionMatrix;
+			uniform mat4 u_Transform;
+
+			out vec2 v_TexCoord;
+
+			void main()
+			{
+				v_TexCoord = a_TexCoord;
+				gl_Position = u_ViewProjectionMatrix * u_Transform *  vec4(a_Position, 1.0);
+			}
+		)";
+
+		std::string textureShaderFragmentSrc = R"(
+			#version 330 core
+
+			layout(location = 0) out vec4 color;
+
+			in vec2 v_TexCoord;
+			
+			uniform sampler2D u_Texture;
+
+			void main()
+			{
+				color = texture(u_Texture, v_TexCoord);
+			}
+		)";
+
+		m_TextureShader.reset(Quartz::Shader::Create(textureShaderVertexSrc, textureShaderFragmentSrc));
+
+		m_Texture = Quartz::Texture2D::Create("assets/textures/tintin.png");
+
+		std::dynamic_pointer_cast<Quartz::OpenGLShader>(m_TextureShader)->Bind();
+		std::dynamic_pointer_cast<Quartz::OpenGLShader>(m_TextureShader)->UploadUniformInt("u_Texture", 0);
 	}
 
 	void OnUpdate(Quartz::Timestep pTimestep) override
@@ -185,7 +226,12 @@ public:
 				
 			}
 		}
-		Quartz::Renderer::Submit(m_Shader, m_VertexArray);
+
+		m_Texture->Bind();
+		Quartz::Renderer::Submit(m_TextureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+
+		// Triangle render
+		//Quartz::Renderer::Submit(m_Shader, m_VertexArray);
 
 		Quartz::Renderer::EndScene();
 	}
@@ -202,11 +248,13 @@ public:
 
 	}
 private:
-	std::shared_ptr<Quartz::Shader> m_Shader;
-	std::shared_ptr<Quartz::VertexArray> m_VertexArray;
+	Quartz::Ref<Quartz::Shader> m_Shader;
+	Quartz::Ref<Quartz::VertexArray> m_VertexArray;
 
-	std::shared_ptr<Quartz::Shader> m_FlatColorShader;
-	std::shared_ptr<Quartz::VertexArray> m_SquareVA;
+	Quartz::Ref<Quartz::Shader> m_FlatColorShader, m_TextureShader;
+	Quartz::Ref<Quartz::VertexArray> m_SquareVA;
+
+	Quartz::Ref<Quartz::Texture2D> m_Texture;
 
 	Quartz::OrthographicCamera m_Camera;
 	glm::vec3 m_CameraPosition;

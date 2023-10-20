@@ -16,6 +16,9 @@
     <Filter Include="src\Quartz">
       <UniqueIdentifier>{0311AC2A-EFC8-ED77-58D0-C6D344A78868}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Quartz\Core">
+      <UniqueIdentifier>{3B4F5768-A7DA-C42C-B0EB-47211CF6202D}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\Quartz\Events">
       <UniqueIdentifier>{871B8AE0-F331-8876-3CA9-1398A8FE58FE}</UniqueIdentifier>
     </Filter>
@@ -46,6 +49,9 @@
     <Filter Include="vendor\glm\glm\gtx">
       <UniqueIdentifier>{B3A6A76B-9F8A-68C1-08EB-6214F4ED5243}</UniqueIdentifier>
     </Filter>
+    <Filter Include="vendor\stb_image">
+      <UniqueIdentifier>{0DA0BA59-F998-D9AB-22CB-BE300E23B9B7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h">
@@ -55,6 +61,12 @@
       <Filter>src\Platform\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\OpenGLRendererAPI.h">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\OpenGLShader.h">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\OpenGLTexture.h">
       <Filter>src\Platform\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\OpenGLVertexArray.h">
@@ -74,6 +86,9 @@
     </ClInclude>
     <ClInclude Include="src\Quartz\Core.h">
       <Filter>src\Quartz</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Quartz\Core\Timestep.h">
+      <Filter>src\Quartz\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Quartz\EntryPoint.h">
       <Filter>src\Quartz</Filter>
@@ -117,6 +132,9 @@
     <ClInclude Include="src\Quartz\Renderer\GraphicsContext.h">
       <Filter>src\Quartz\Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="src\Quartz\Renderer\OrthographicCamera.h">
+      <Filter>src\Quartz\Renderer</Filter>
+    </ClInclude>
     <ClInclude Include="src\Quartz\Renderer\RenderCommand.h">
       <Filter>src\Quartz\Renderer</Filter>
     </ClInclude>
@@ -127,6 +145,9 @@
       <Filter>src\Quartz\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Quartz\Renderer\Shader.h">
+      <Filter>src\Quartz\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Quartz\Renderer\Texture.h">
       <Filter>src\Quartz\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Quartz\Renderer\VertexArray.h">
@@ -1386,9 +1407,9 @@
     <ClInclude Include="vendor\glm\glm\vector_relational.hpp">
       <Filter>vendor\glm\glm</Filter>
     </ClInclude>
-    <ClInclude Include="src\Quartz\Renderer\OrthographicCamera.h" />
-    <ClInclude Include="src\Quartz\Core\Timestep.h" />
-    <ClInclude Include="src\Platform\OpenGL\OpenGLShader.h" />
+    <ClInclude Include="vendor\stb_image\stb_image.h">
+      <Filter>vendor\stb_image</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp">
@@ -1398,6 +1419,12 @@
       <Filter>src\Platform\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLRendererAPI.cpp">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLShader.cpp">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLTexture.cpp">
       <Filter>src\Platform\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLVertexArray.cpp">
@@ -1430,6 +1457,9 @@
     <ClCompile Include="src\Quartz\Renderer\Buffer.cpp">
       <Filter>src\Quartz\Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="src\Quartz\Renderer\OrthographicCamera.cpp">
+      <Filter>src\Quartz\Renderer</Filter>
+    </ClCompile>
     <ClCompile Include="src\Quartz\Renderer\RenderCommand.cpp">
       <Filter>src\Quartz\Renderer</Filter>
     </ClCompile>
@@ -1442,13 +1472,17 @@
     <ClCompile Include="src\Quartz\Renderer\Shader.cpp">
       <Filter>src\Quartz\Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="src\Quartz\Renderer\Texture.cpp">
+      <Filter>src\Quartz\Renderer</Filter>
+    </ClCompile>
     <ClCompile Include="src\Quartz\Renderer\VertexArray.cpp">
       <Filter>src\Quartz\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\qtpch.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\Quartz\Renderer\OrthographicCamera.cpp" />
-    <ClCompile Include="src\Platform\OpenGL\OpenGLShader.cpp" />
+    <ClCompile Include="vendor\stb_image\stb_image.cpp">
+      <Filter>vendor\stb_image</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

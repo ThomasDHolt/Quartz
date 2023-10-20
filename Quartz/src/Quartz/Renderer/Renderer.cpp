@@ -16,7 +16,7 @@ namespace Quartz
 	{
 	}
 
-	void Renderer::Submit(const std::shared_ptr<Shader>& pShader, const std::shared_ptr<VertexArray>& pVertexArray, const glm::mat4& pTransform)
+	void Renderer::Submit(const Ref<Shader>& pShader, const Ref<VertexArray>& pVertexArray, const glm::mat4& pTransform)
 	{
 		pShader->Bind();
 		std::dynamic_pointer_cast<OpenGLShader>(pShader)->UploadUniformMat4("u_ViewProjectionMatrix", m_SceneData->ViewProjectionMatrix);
