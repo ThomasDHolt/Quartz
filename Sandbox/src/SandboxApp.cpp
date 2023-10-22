@@ -99,7 +99,7 @@ public:
 			}
 		)";
 
-		m_Shader.reset(Quartz::Shader::Create(vertexSrc, fragmentSrc));
+		m_Shader = Quartz::Shader::Create("vertexPosColor", vertexSrc, fragmentSrc);
 
 		std::string flatColorShaderVertexSrc = R"(
 			#version 330 core
@@ -133,15 +133,15 @@ public:
 			}
 		)";
 
-		m_FlatColorShader.reset(Quartz::Shader::Create(flatColorShaderVertexSrc, flatColorShaderFragmentSrc));
+		m_FlatColorShader = Quartz::Shader::Create("flatColor", flatColorShaderVertexSrc, flatColorShaderFragmentSrc);
 
-		m_TextureShader.reset(Quartz::Shader::Create("assets/shaders/Texture.glsl"));
+		auto textureShader = m_ShaderLibrary.Load("assets/shaders/Texture.glsl");
 
 		m_Texture = Quartz::Texture2D::Create("assets/textures/Checkerboard.png");
 		m_TintinTexture = Quartz::Texture2D::Create("assets/textures/nj.png");
 
-		std::dynamic_pointer_cast<Quartz::OpenGLShader>(m_TextureShader)->Bind();
-		std::dynamic_pointer_cast<Quartz::OpenGLShader>(m_TextureShader)->UploadUniformInt("u_Texture", 0);
+		std::dynamic_pointer_cast<Quartz::OpenGLShader>(textureShader)->Bind();
+		std::dynamic_pointer_cast<Quartz::OpenGLShader>(textureShader)->UploadUniformInt("u_Texture", 0);
 	}
 
 	void OnUpdate(Quartz::Timestep pTimestep) override
@@ -195,10 +195,12 @@ public:
 			}
 		}
 
+		auto textureShader = m_ShaderLibrary.Get("Texture");
+
 		m_Texture->Bind();
-		Quartz::Renderer::Submit(m_TextureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+		Quartz::Renderer::Submit(textureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 		m_TintinTexture->Bind();
-		Quartz::Renderer::Submit(m_TextureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+		Quartz::Renderer::Submit(textureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 
 		// Triangle render
 		//Quartz::Renderer::Submit(m_Shader, m_VertexArray);
@@ -218,10 +220,11 @@ public:
 
 	}
 private:
+	Quartz::ShaderLibrary m_ShaderLibrary;
 	Quartz::Ref<Quartz::Shader> m_Shader;
 	Quartz::Ref<Quartz::VertexArray> m_VertexArray;
 
-	Quartz::Ref<Quartz::Shader> m_FlatColorShader, m_TextureShader;
+	Quartz::Ref<Quartz::Shader> m_FlatColorShader;
 	Quartz::Ref<Quartz::VertexArray> m_SquareVA;
 
 	Quartz::Ref<Quartz::Texture2D> m_Texture, m_TintinTexture;

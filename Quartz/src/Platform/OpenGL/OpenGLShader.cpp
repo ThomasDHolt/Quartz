@@ -22,9 +22,17 @@ namespace Quartz
 		std::string source = ReadFile(pFilePath);
 		auto shaderSources = PreProcess(source);
 		Compile(shaderSources);
+
+		// Extract name from filepath
+		auto lastSlash = pFilePath.find_last_of("/\\");
+		lastSlash = lastSlash == std::string::npos ? 0 : lastSlash + 1;
+		auto lastDot = pFilePath.rfind(".");
+		auto count = lastDot == std::string::npos ? pFilePath.size() - lastSlash : lastDot - lastSlash;
+		m_Name = pFilePath.substr(lastSlash, count);
 	}
 
-	OpenGLShader::OpenGLShader(const std::string& pVertexSrc, const std::string& pFragmentSrc)
+	OpenGLShader::OpenGLShader(const std::string& pName, const std::string& pVertexSrc, const std::string& pFragmentSrc)
+		: m_Name(pName)
 	{
 		std::unordered_map<GLenum, std::string> sources;
 		sources[GL_VERTEX_SHADER] = pVertexSrc;
@@ -115,7 +123,7 @@ namespace Quartz
 	std::string OpenGLShader::ReadFile(const std::string& pFilePath)
 	{
 		std::string result;
-		std::ifstream in(pFilePath, std::ios::in, std::ios::binary);
+		std::ifstream in(pFilePath, std::ios::in | std::ios::binary);
 		if (in)
 		{
 			in.seekg(0, std::ios::end);
@@ -135,7 +143,9 @@ namespace Quartz
 	void OpenGLShader::Compile(std::unordered_map<GLenum, std::string>& pShaderSources)
 	{
 		GLuint program = glCreateProgram();
-		std::vector<GLenum> glShaderIDs(pShaderSources.size());
+		QT_CORE_ASSERT(pShaderSources.size() <= 2, "We only support 2 shaders for now!");
+		std::array<GLenum, 2> glShaderIDs;
+		int glShaderIDIndex = 0;
 		for (auto& kv : pShaderSources)
 		{
 			GLenum type = kv.first;
@@ -166,13 +176,11 @@ namespace Quartz
 			}
 
 			glAttachShader(program, shader);
-			glShaderIDs.push_back(shader);
+			glShaderIDs[glShaderIDIndex++] = shader;
 		}
 
-		// Link our program
 		glLinkProgram(program);
 
-		// Note the different functions here: glGetProgram* instead of glGetShader*.
 		GLint isLinked = 0;
 		glGetProgramiv(program, GL_LINK_STATUS, (int*)&isLinked);
 		if (isLinked == GL_FALSE)
@@ -180,11 +188,9 @@ namespace Quartz
 			GLint maxLength = 0;
 			glGetProgramiv(program, GL_INFO_LOG_LENGTH, &maxLength);
 
-			// The maxLength includes the NULL character
 			std::vector<GLchar> infoLog(maxLength);
 			glGetProgramInfoLog(program, maxLength, &maxLength, &infoLog[0]);
 
-			// We don't need the program anymore.
 			glDeleteProgram(program);
 			
 			for(auto id : glShaderIDs)
