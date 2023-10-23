@@ -5,10 +5,14 @@
 #include "glm/gtc/matrix_transform.hpp"
 #include <glm/gtc/type_ptr.hpp>
 #include "Platform/OpenGL/OpenGLShader.h"
+#include "Quartz/Levels/LevelLibrary.h"
 
 class ExampleLayer : public Quartz::Layer
 {
 public:
+#define MAX_MAP_WIDTH 50
+#define MAX_MAP_HEIGHT 10
+
 	ExampleLayer()
 		: Layer("Example"), m_Camera(-1.6f, 1.6f, -0.9f, 0.9f), m_CameraPosition(0.0f), m_SquarePosition(0.0f)
 	{
@@ -136,9 +140,11 @@ public:
 		m_FlatColorShader = Quartz::Shader::Create("flatColor", flatColorShaderVertexSrc, flatColorShaderFragmentSrc);
 
 		auto textureShader = m_ShaderLibrary.Load("assets/shaders/Texture.glsl");
+		auto testLevel = m_LevelLibrary.Load("assets/levels/TestLevel.txt");
 
 		m_Texture = Quartz::Texture2D::Create("assets/textures/Checkerboard.png");
-		m_TintinTexture = Quartz::Texture2D::Create("assets/textures/nj.png");
+		m_NJTexture = Quartz::Texture2D::Create("assets/textures/nj.png");
+		m_BrickTexture = Quartz::Texture2D::Create("assets/textures/BasicBrick.png");
 
 		std::dynamic_pointer_cast<Quartz::OpenGLShader>(textureShader)->Bind();
 		std::dynamic_pointer_cast<Quartz::OpenGLShader>(textureShader)->UploadUniformInt("u_Texture", 0);
@@ -183,24 +189,28 @@ public:
 		std::dynamic_pointer_cast<Quartz::OpenGLShader>(m_FlatColorShader)->Bind();
 		std::dynamic_pointer_cast<Quartz::OpenGLShader>(m_FlatColorShader)->UploadUniformFloat3("u_Color", m_SquareColor);
 
+		auto textureShader = m_ShaderLibrary.Get("Texture");
+		auto level = m_LevelLibrary.Get("TestLevel");
 
-		for (int y = 0; y < 20; y++)
+		m_BrickTexture->Bind();
+		for (int y = 0; y < level->GetData().size(); y++)
 		{
-			for (int x = 0; x < 20; x++)
+			auto row = level->GetRow(y);
+			for (int x = 0; x < row.length(); x++)
 			{
-				glm::vec3 pos(x * 0.11f, y * 0.11f, 0.0f);
-				glm::mat4 squareTransform = glm::translate(glm::mat4(1.0f), pos) * squareScale;
-				Quartz::Renderer::Submit(m_FlatColorShader, m_SquareVA, squareTransform);
-				
+				if (row[x] == '#')
+				{
+					glm::vec3 pos(x * 0.1f, y * 0.1f, 0.0f);
+					glm::mat4 squareTransform = glm::translate(glm::mat4(1.0f), pos) * squareScale;
+					Quartz::Renderer::Submit(textureShader, m_SquareVA, squareTransform);
+				}
 			}
 		}
 
-		auto textureShader = m_ShaderLibrary.Get("Texture");
-
-		m_Texture->Bind();
+		/*m_Texture->Bind();
 		Quartz::Renderer::Submit(textureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
-		m_TintinTexture->Bind();
-		Quartz::Renderer::Submit(textureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+		m_NJTexture->Bind();
+		Quartz::Renderer::Submit(textureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));*/
 
 		// Triangle render
 		//Quartz::Renderer::Submit(m_Shader, m_VertexArray);
@@ -221,13 +231,28 @@ public:
 	}
 private:
 	Quartz::ShaderLibrary m_ShaderLibrary;
+	Quartz::LevelLibrary m_LevelLibrary;
 	Quartz::Ref<Quartz::Shader> m_Shader;
 	Quartz::Ref<Quartz::VertexArray> m_VertexArray;
 
 	Quartz::Ref<Quartz::Shader> m_FlatColorShader;
 	Quartz::Ref<Quartz::VertexArray> m_SquareVA;
 
-	Quartz::Ref<Quartz::Texture2D> m_Texture, m_TintinTexture;
+	Quartz::Ref<Quartz::Texture2D> m_Texture, m_NJTexture, m_BrickTexture;
+
+	std::string map[MAX_MAP_HEIGHT][MAX_MAP_WIDTH] =
+	{
+		{"#", "#", "#", "#", "#", "#", "#", "#", "#", "#", " "," ", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#"},
+		{"#", " ", " ", " ", " ", " ", " ", " ", " ", "#", " "," ", "#", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
+		{"#", " ", " ", " ", " ", " ", " ", " ", " ", "#", " "," ", "#", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
+		{"#", " ", " ", " ", " ", " ", " ", " ", " ", "#", "#","#", "#", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
+		{"#", " ", " ", " ", " ", " ", " ", " ", " ", " ", " "," ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
+		{"#", " ", " ", " ", " ", " ", " ", " ", " ", " ", " "," ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
+		{"#", " ", " ", " ", " ", " ", " ", " ", " ", "#", "#","#", "#", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
+		{"#", " ", " ", " ", " ", " ", " ", " ", " ", "#", " "," ", "#", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
+		{"#", " ", " ", " ", " ", " ", " ", " ", " ", "#", " "," ", "#", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
+		{"#", "#", "#", "#", "#", "#", "#", "#", "#", "#", " "," ", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#"},
+	};
 
 	Quartz::OrthographicCamera m_Camera;
 	glm::vec3 m_CameraPosition;

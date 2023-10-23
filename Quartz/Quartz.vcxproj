@@ -165,6 +165,8 @@
     <ClInclude Include="src\Quartz\KeyCodes.h" />
     <ClInclude Include="src\Quartz\Layer.h" />
     <ClInclude Include="src\Quartz\LayerStack.h" />
+    <ClInclude Include="src\Quartz\Levels\Level.h" />
+    <ClInclude Include="src\Quartz\Levels\LevelLibrary.h" />
     <ClInclude Include="src\Quartz\Log.h" />
     <ClInclude Include="src\Quartz\MouseButtonCodes.h" />
     <ClInclude Include="src\Quartz\Renderer\Buffer.h" />
@@ -610,6 +612,8 @@
     <ClCompile Include="src\Quartz\ImGui\ImGuiLayer.cpp" />
     <ClCompile Include="src\Quartz\Layer.cpp" />
     <ClCompile Include="src\Quartz\LayerStack.cpp" />
+    <ClCompile Include="src\Quartz\Levels\Level.cpp" />
+    <ClCompile Include="src\Quartz\Levels\LevelLibrary.cpp" />
     <ClCompile Include="src\Quartz\Log.cpp" />
     <ClCompile Include="src\Quartz\Renderer\Buffer.cpp" />
     <ClCompile Include="src\Quartz\Renderer\OrthographicCamera.cpp" />
