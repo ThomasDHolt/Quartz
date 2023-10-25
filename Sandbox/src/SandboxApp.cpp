@@ -192,7 +192,6 @@ public:
 		auto textureShader = m_ShaderLibrary.Get("Texture");
 		auto level = m_LevelLibrary.Get("TestLevel");
 
-		m_BrickTexture->Bind();
 		for (int y = 0; y < level->GetData().size(); y++)
 		{
 			auto row = level->GetRow(y);
@@ -200,6 +199,8 @@ public:
 			{
 				if (row[x] == '#')
 				{
+					m_BrickTexture->Bind();
+
 					glm::vec3 pos(x * 0.1f, y * 0.1f, 0.0f);
 					glm::mat4 squareTransform = glm::translate(glm::mat4(1.0f), pos) * squareScale;
 					Quartz::Renderer::Submit(textureShader, m_SquareVA, squareTransform);
