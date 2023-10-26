@@ -142,9 +142,20 @@ public:
 		auto textureShader = m_ShaderLibrary.Load("assets/shaders/Texture.glsl");
 		auto testLevel = m_LevelLibrary.Load("assets/levels/TestLevel.txt");
 
+		//TODO: Maybe make a LoadContent method where assets such as textures and levels can be loaded rather than doing this in the layer constructor?
+
 		m_Texture = Quartz::Texture2D::Create("assets/textures/Checkerboard.png");
 		m_NJTexture = Quartz::Texture2D::Create("assets/textures/nj.png");
-		m_BrickTexture = Quartz::Texture2D::Create("assets/textures/BasicBrick.png");
+
+		m_BrickTexture = Quartz::Texture2D::Create("assets/textures/RedBrick.png");
+		m_DoorTexture = Quartz::Texture2D::Create("assets/textures/RedBrickDoor.png");
+
+		m_GrassTexture = Quartz::Texture2D::Create("assets/textures/Grass.png");
+		m_BushTexture = Quartz::Texture2D::Create("assets/textures/Bush.png");
+
+		m_SingularVerticalPathTexture = Quartz::Texture2D::Create("assets/textures/Path_Vertical_Singular.png");
+		m_LeftVerticalPathTexture = Quartz::Texture2D::Create("assets/textures/Path_Vertical_Left.png");
+		m_RightVerticalPathTexture = Quartz::Texture2D::Create("assets/textures/Path_Vertical_Right.png");
 
 		std::dynamic_pointer_cast<Quartz::OpenGLShader>(textureShader)->Bind();
 		std::dynamic_pointer_cast<Quartz::OpenGLShader>(textureShader)->UploadUniformInt("u_Texture", 0);
@@ -192,6 +203,8 @@ public:
 		auto textureShader = m_ShaderLibrary.Get("Texture");
 		auto level = m_LevelLibrary.Get("TestLevel");
 
+		//TODO: Pop this in a method, perhaps called DrawLevel which takes in a reference to a Level that we retrieve from the Level Library?
+
 		for (int y = 0; y < level->GetData().size(); y++)
 		{
 			auto row = level->GetRow(y);
@@ -204,6 +217,58 @@ public:
 					glm::vec3 pos(x * 0.1f, y * 0.1f, 0.0f);
 					glm::mat4 squareTransform = glm::translate(glm::mat4(1.0f), pos) * squareScale;
 					Quartz::Renderer::Submit(textureShader, m_SquareVA, squareTransform);
+				}
+				else if (row[x] == 'D')
+				{
+					m_DoorTexture->Bind();
+
+					glm::vec3 pos(x * 0.1f, y * 0.1f, 0.0f);
+					glm::mat4 squareTransform = glm::translate(glm::mat4(1.0f), pos) * squareScale;
+					Quartz::Renderer::Submit(textureShader, m_SquareVA, squareTransform);
+				}
+				else if (row[x] == '\'')
+				{
+					m_GrassTexture->Bind();
+
+					glm::vec3 pos(x * 0.1f, y * 0.1f, 0.0f);
+					glm::mat4 squareTransform = glm::translate(glm::mat4(1.0f), pos) * squareScale;
+					Quartz::Renderer::Submit(textureShader, m_SquareVA, squareTransform);
+				}
+				else if (row[x] == 'B')
+				{
+					glm::vec3 pos(x * 0.1f, y * 0.1f, 0.0f);
+					glm::mat4 squareTransform = glm::translate(glm::mat4(1.0f), pos) * squareScale;
+					m_GrassTexture->Bind();
+					Quartz::Renderer::Submit(textureShader, m_SquareVA, squareTransform);
+					m_BushTexture->Bind();
+					Quartz::Renderer::Submit(textureShader, m_SquareVA, squareTransform);
+				}
+				else if (row[x] == 'P')
+				{
+					if (x > 0 && row[x - 1] == 'P')
+					{
+						m_RightVerticalPathTexture->Bind();
+
+						glm::vec3 pos(x * 0.1f, y * 0.1f, 0.0f);
+						glm::mat4 squareTransform = glm::translate(glm::mat4(1.0f), pos) * squareScale;
+						Quartz::Renderer::Submit(textureShader, m_SquareVA, squareTransform);
+					}
+					else if (x < row.length() && row[x + 1] == 'P')
+					{
+						m_LeftVerticalPathTexture->Bind();
+
+						glm::vec3 pos(x * 0.1f, y * 0.1f, 0.0f);
+						glm::mat4 squareTransform = glm::translate(glm::mat4(1.0f), pos) * squareScale;
+						Quartz::Renderer::Submit(textureShader, m_SquareVA, squareTransform);
+					}
+					else
+					{
+						m_SingularVerticalPathTexture->Bind();
+
+						glm::vec3 pos(x * 0.1f, y * 0.1f, 0.0f);
+						glm::mat4 squareTransform = glm::translate(glm::mat4(1.0f), pos) * squareScale;
+						Quartz::Renderer::Submit(textureShader, m_SquareVA, squareTransform);
+					}
 				}
 			}
 		}
@@ -239,21 +304,10 @@ private:
 	Quartz::Ref<Quartz::Shader> m_FlatColorShader;
 	Quartz::Ref<Quartz::VertexArray> m_SquareVA;
 
-	Quartz::Ref<Quartz::Texture2D> m_Texture, m_NJTexture, m_BrickTexture;
-
-	std::string map[MAX_MAP_HEIGHT][MAX_MAP_WIDTH] =
-	{
-		{"#", "#", "#", "#", "#", "#", "#", "#", "#", "#", " "," ", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#"},
-		{"#", " ", " ", " ", " ", " ", " ", " ", " ", "#", " "," ", "#", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
-		{"#", " ", " ", " ", " ", " ", " ", " ", " ", "#", " "," ", "#", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
-		{"#", " ", " ", " ", " ", " ", " ", " ", " ", "#", "#","#", "#", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
-		{"#", " ", " ", " ", " ", " ", " ", " ", " ", " ", " "," ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
-		{"#", " ", " ", " ", " ", " ", " ", " ", " ", " ", " "," ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
-		{"#", " ", " ", " ", " ", " ", " ", " ", " ", "#", "#","#", "#", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
-		{"#", " ", " ", " ", " ", " ", " ", " ", " ", "#", " "," ", "#", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
-		{"#", " ", " ", " ", " ", " ", " ", " ", " ", "#", " "," ", "#", " ", " ", " ", " ", " ", " ", " ", " ", "#"},
-		{"#", "#", "#", "#", "#", "#", "#", "#", "#", "#", " "," ", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#"},
-	};
+	Quartz::Ref<Quartz::Texture2D> m_Texture, m_NJTexture;
+	Quartz::Ref<Quartz::Texture2D> m_BrickTexture, m_DoorTexture;
+	Quartz::Ref<Quartz::Texture2D> m_GrassTexture, m_BushTexture;
+	Quartz::Ref<Quartz::Texture2D> m_SingularVerticalPathTexture, m_LeftVerticalPathTexture, m_RightVerticalPathTexture;
 
 	Quartz::OrthographicCamera m_Camera;
 	glm::vec3 m_CameraPosition;
