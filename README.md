@@ -10,6 +10,13 @@ Currently Quartz only supports OpenGL, however the engine does have an abstract 
   <img src="images/levelRenderExample.png" width="500">
 </p>
 
+This method of level rendering can be extended with new symbols as the level demands more scenery for the player to look at. In the example below, the path leading from the house is being rendered by checking if it is horizontally adjacent to another path symbol and binding the correct path texture. Stuff like this makes it an awful lot simpler to define a path in the txt file, since you don't need to worry about having different combos of symbols depending on the kind of path you want.
+
+<p float="left">
+  <img src="images/houseSceneText.png" width="380">
+  <img src="images/houseSceneRender.png" width="500">
+</p>
+
 ## External libraries
 - GLAD
 - GLFW
