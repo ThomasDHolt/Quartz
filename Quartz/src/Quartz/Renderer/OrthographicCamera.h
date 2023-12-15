@@ -8,14 +8,14 @@ namespace Quartz
 	{
 	public:
 		OrthographicCamera(float pLeft, float pRight, float pBottom, float pTop);
+		void SetProjection(float pLeft, float pRight, float pBottom, float pTop);
 
 		const glm::vec3& GetPosition() const { return m_Position; }
 		void SetPosition(const glm::vec3 pPosition) { m_Position = pPosition; RecalculateViewMatrix(); }
 
-		void SetZoom(float pLeft, float pRight, float pBottom, float pTop) { m_Left = pLeft; m_Right = pRight; m_Bottom = pBottom; m_Top = pTop; RecalculateProjectionMatrix(); RecalculateViewMatrix(); }
-
 		float GetRotation() const { return m_Rotation; }
 		void SetRotation(float pRotation) { m_Rotation = pRotation; RecalculateViewMatrix(); }
+
 
 		const glm::mat4& GetProjectionMatrix() const { return m_ProjectionMatrix; }
 		const glm::mat4& GetViewMatrix() const { return m_ViewMatrix; }

@@ -15,6 +15,12 @@ namespace Quartz
 		m_ViewProjectionMatrix = m_ProjectionMatrix * m_ViewMatrix;
 	}
 
+	void OrthographicCamera::SetProjection(float pLeft, float pRight, float pBottom, float pTop)
+	{
+		m_ProjectionMatrix = glm::ortho(pLeft, pRight, pBottom, pTop, -1.0f, 1.0f);
+		m_ViewProjectionMatrix = m_ProjectionMatrix * m_ViewMatrix;
+	}
+
 	void OrthographicCamera::RecalculateViewMatrix()
 	{
 		glm::mat4 transform = glm::translate(glm::mat4(1.0f), m_Position) * glm::rotate(glm::mat4(1.0f), m_Rotation, glm::vec3(0, 0, 1));

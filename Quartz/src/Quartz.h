@@ -11,6 +11,7 @@
 #include "Quartz/Input.h"
 #include "Quartz/MouseButtonCodes.h"
 #include "Quartz/KeyCodes.h"
+#include <Quartz/OrthographicCameraController.h>
 
 #include "Quartz/ImGui/ImGuiLayer.h"
 
